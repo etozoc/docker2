@@ -1,0 +1,25 @@
+version: "3.9"
+
+services:
+  mysql:
+    container_name: mysql
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: yadataMySQLroot
+      MYSQL_ROOT_HOST: "%"
+      MYSQL_DATABASE: root
+      TZ: Europe/Moscow
+    volumes:
+      - /home/sites/docker/mysql/conf/my.cnf:/etc/mysql/conf.d/my.cnf
+      - /home/sites/docker/mysql/data:/var/lib/mysql
+      - /home/sites/dbs/:/home/sites/dbs
+    restart: unless-stopped
+    ports:
+      - 63306:3306
+    networks:
+      sites:
+        ipv4_address: 172.100.0.13
+networks:
+  sites:
+    external: true
+    name: sites
